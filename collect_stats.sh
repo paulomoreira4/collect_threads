@@ -333,6 +333,8 @@ do
 	pmap -d $SERVICE_PID > $DIR/pmap_$SERVICE_PROCESS_NAME
 done
 
+if [ true ]; then
+	echo "Skipping memory Dump collection..."
 if [ "$PROCESS_PID" == "" ]; then
 	echo "not collecting memory dump because couldn't find process pid"
 else
