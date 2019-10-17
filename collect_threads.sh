@@ -3,8 +3,8 @@
 # Change log
 # v1.0  * initial version
 # v1.1  * collect thread dumps from outsystems services
-#       * logs are now compressed
-#       * minor code corrections
+#       * logs are now compressed into a single file
+#       * minor code corrections and improvements
 
 VERSION="1.1"
 
@@ -25,7 +25,7 @@ echo ""
 echo "OutSystems Thread Collector v$VERSION"
 echo ""
 
-THREAD_FOLDER="thread_dumps"
+THREAD_FOLDER="thread_dumps_$(date +%Y%m%d_%H%M)"
 
 # Application server info
 PROCESS_USER=""
