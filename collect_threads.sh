@@ -139,7 +139,7 @@ else
 	while [ $COLLECT_COUNT -lt $COLLECT_TOTAL ]; do
 		let collect_print=COLLECT_COUNT+1
 		
-		echo "Collecting threads $collect_print of $COLLECT_TOTAL..."
+		echo "Collecting threads $collect_print of $COLLECT_TOTAL."
 		
 		TIMESTAMP=$(date +%F_%H%M%S)
 		
@@ -174,7 +174,7 @@ else
 		let COLLECT_COUNT=COLLECT_COUNT+1
 		
 		if [ $COLLECT_TOTAL -gt 1 -a $COLLECT_COUNT -lt $COLLECT_TOTAL ]; then
-			echo "Threads collected. Waiting $COLLECT_INTERVAL seconds for next collection."
+			echo "Waiting $COLLECT_INTERVAL seconds for next collection."
 			sleep $COLLECT_INTERVAL
 		fi
 	done
