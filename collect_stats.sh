@@ -335,18 +335,20 @@ done
 
 if [ true ]; then
 	echo "Skipping memory Dump collection..."
-if [ "$PROCESS_PID" == "" ]; then
-	echo "not collecting memory dump because couldn't find process pid"
 else
-	if askYesNo "n" "Include $APPSERVER_NAME Memory Dump?"; then
-		echo "Gathering $APPSERVER_NAME (Process $PROCESS_PID) memory dump..."
-		# heap dump
-		if [ -f $JAVA_BIN/jrcmd ]; then
-			su $PROCESS_USER - -s /bin/bash -c "$JAVA_BIN/jrcmd $PROCESS_PID hprofdump filename=$DIR/heap.hprof > /dev/null 2>> $DIR/errors.log"
-		else
-			su $PROCESS_USER - -s /bin/bash -c "$JAVA_BIN/jmap -J-d64 -dump:format=b,file=$DIR/heap.hprof $PROCESS_PID > /dev/null 2>> $DIR/errors.log"
-			if [ -d $JBOSS_HOME/standalone ]; then
-				su $PROCESS_USER - -s /bin/bash -c "$JAVA_BIN/jmap -J-d64 -dump:format=b,file=$DIR/heap_mq.hprof $PID_MQ > /dev/null 2>> $DIR/errors.log"
+	if [ "$PROCESS_PID" == "" ]; then
+		echo "not collecting memory dump because couldn't find process pid"
+	else
+		if askYesNo "n" "Include $APPSERVER_NAME Memory Dump?"; then
+			echo "Gathering $APPSERVER_NAME (Process $PROCESS_PID) memory dump..."
+			# heap dump
+			if [ -f $JAVA_BIN/jrcmd ]; then
+				su $PROCESS_USER - -s /bin/bash -c "$JAVA_BIN/jrcmd $PROCESS_PID hprofdump filename=$DIR/heap.hprof > /dev/null 2>> $DIR/errors.log"
+			else
+				su $PROCESS_USER - -s /bin/bash -c "$JAVA_BIN/jmap -J-d64 -dump:format=b,file=$DIR/heap.hprof $PROCESS_PID > /dev/null 2>> $DIR/errors.log"
+				if [ -d $JBOSS_HOME/standalone ]; then
+					su $PROCESS_USER - -s /bin/bash -c "$JAVA_BIN/jmap -J-d64 -dump:format=b,file=$DIR/heap_mq.hprof $PID_MQ > /dev/null 2>> $DIR/errors.log"
+				fi
 			fi
 		fi
 	fi
