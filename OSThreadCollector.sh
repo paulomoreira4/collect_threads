@@ -3,17 +3,10 @@
 # Change log
 # v1.0  * initial version
 
-#Configurable variables -- script usually does a decent job at figuring these out
-WL_ADMIN_SERVER_NAME="AdminServer"
-WL_MANAGED_SERVER_NAME=""
-PROCESS_USER=""
-LOGDAYS=30
-LOGS_FOLDER_ADMIN_SERVER=""
-
+# Configurable variables
 VERSION="1.0"
 
-# prepare for execution
-
+# Prepare for execution
 if [ ! -f /etc/sysconfig/outsystems ]; then
 	echo "OutSystems Platform is not installed on this server. Cancelling."
 	exit
@@ -25,7 +18,6 @@ if [ $(whoami) != "root" ]; then
 fi
 
 source /etc/sysconfig/outsystems
-CP='cp -p'
 DIR=$(mktemp -d)
 chmod 777 $DIR
 touch $DIR/errors.log
@@ -38,6 +30,7 @@ if [ -f $JAVA_BIN/../../bin/java ]; then
 	JAVA_BIN="$JAVA_BIN/../../bin/"
 fi
 
+echo ""
 echo "OutSystems Services Thread Collector v$VERSION" >> $DIR/toolinfo
 echo >> $DIR/toolinfo
 echo "OutSystems platform Directory: $OUTSYSTEMS_HOME" >> $DIR/toolinfo
@@ -50,12 +43,10 @@ if [ -h /opt -o -h /opt/outsystems -o -h /opt/outsystems/platform -o -h /opt/out
 fi
 
 echo "Java Directory: $JAVA_BIN"  >> $DIR/toolinfo
-echo "$APPSERVER_NAME user: $PROCESS_USER" >> $DIR/toolinfo
-echo "$APPSERVER_NAME pid: $PROCESS_PID" >> $DIR/toolinfo
-echo "$APPSERVER_NAME logs folder: $LOGS_FOLDER" >> $DIR/toolinfo
 cat $DIR/toolinfo
 echo
 
+# Collect threads
 echo "Gathering OutSystems Services info ..."
 for SERVICE_INFO in $(su outsystems -c "$JAVA_HOME/bin/jps -l" | grep outsystems.hubedition | tr ' ' '|')
 do
