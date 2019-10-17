@@ -147,7 +147,7 @@ else
 		else
 			su $PROCESS_USER - -s /bin/bash -c "$JAVA_BIN/jstack $PROCESS_PID" > $DIR/threads_"$APPSERVER_NAME".log 2>> $DIR/errors.log
 		fi
-		FILENAME=$APPSERVER_NAME"_"$TIMESTAMP".log"
+		FILENAME=$TIMESTAMP"_"$APPSERVER_NAME".log"
 		cp $DIR/threads_$APPSERVER_NAME.log $THREAD_FOLDER/$FILENAME;
 		
 		# Collect OutSystems services threads
@@ -161,13 +161,13 @@ else
 			fi
 			pmap -d $SERVICE_PID > $DIR/pmap_$SERVICE_PROCESS_NAME
 			
-			FILENAME="$SERVICE_PROCESS_NAME_"$TIMESTAMP".log"
+			FILENAME=$TIMESTAMP"_"$SERVICE_PROCESS_NAME".log"
 			cp $DIR/threads_$SERVICE_PROCESS_NAME.log $THREAD_FOLDER/$FILENAME;
 			
 		done
 				
 		
-		echo "Threads collected successfully. You can find them in $THREAD_FOLDER/$FILENAME"
+		echo "Threads collected successfully. You can find them in $THREAD_FOLDER"
 		
 		let COLLECT_COUNT=COLLECT_COUNT+1
 		
