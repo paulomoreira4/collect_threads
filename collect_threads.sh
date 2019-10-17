@@ -187,6 +187,7 @@ echo "Packing information, please wait."
 PACKAGE_TARGET="outsystems_thread_dumps_$(date +%Y%m%d_%H%M).tgz"
 tar zcf $PACKAGE_TARGET -C $THREAD_FOLDER .
 echo "Threads collected successfully. You can find them in $PACKAGE_TARGET ."
+echo ""
 
 # Delete the previously generated temporary folders
 rm -rf $DIR
