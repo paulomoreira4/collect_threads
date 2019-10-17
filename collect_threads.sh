@@ -163,7 +163,6 @@ else
 			else
 				su outsystems - -s /bin/bash -c "$JAVA_HOME/bin/jstack $SERVICE_PID > $DIR/threads_"$SERVICE_PROCESS_NAME".log 2>> $DIR/errors.log"
 			fi
-			pmap -d $SERVICE_PID > $DIR/pmap_$SERVICE_PROCESS_NAME
 			
 			FILENAME=$TIMESTAMP"_"$SERVICE_PROCESS_NAME".log"
 			cp $DIR/threads_$SERVICE_PROCESS_NAME.log $THREAD_FOLDER/$FILENAME;
